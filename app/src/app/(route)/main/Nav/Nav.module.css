@@ -1,0 +1,48 @@
+.nav {
+  height: 90px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #fff;
+}
+
+.navItem {
+  flex: 1;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.icon {
+  color: #C5C6CC;
+  font-size: 20px;
+}
+
+.title {
+  color: #C5C6CC;
+  font-size: 12px;
+}
+
+/* 선택된 아이템의 스타일 */
+.selected {
+  color: #A0D468;
+}
+
+.selected .icon {
+  color: #A0D468;
+}
+
+.selected .title {
+  color: #A0D468;
+}
+
+@media (min-width: 501px) {
+  .nav {
+    width: 500px;
+  }
+}
