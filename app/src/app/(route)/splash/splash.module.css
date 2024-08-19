@@ -1,0 +1,17 @@
+.box {
+  height: 400px;
+  width: 100%;
+}
+
+.util {
+  flex: 1;
+
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.swiper {
+  height: 100vh !important;
+}

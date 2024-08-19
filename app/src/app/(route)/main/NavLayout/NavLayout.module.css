@@ -1,0 +1,21 @@
+.nav {
+  height: 90px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #fff;
+}
+
+.navItem {
+  flex: 1;
+  cursor: pointer;
+  text-align: center;
+}
+@media (min-width: 501px) {
+  .nav {
+    width: 500px;
+  }
+}
