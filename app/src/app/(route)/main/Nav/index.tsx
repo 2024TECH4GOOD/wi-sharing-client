@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   FaHome,
   FaHandsHelping,
@@ -9,7 +9,7 @@ import {
   FaDonate,
 } from "react-icons/fa";
 import { Home, Mentoring, Qna, Donation, My } from "../(section)";
-import styles from "./NavLayout.module.css";
+import styles from "./Nav.module.css";
 
 interface NavProps {
   onSelectSection: (section: React.ReactNode) => void;
@@ -43,21 +43,28 @@ const NavConfig = [
   },
 ];
 
-const NavLayout = ({ onSelectSection }: NavProps) => {
+const Nav = ({ onSelectSection }: NavProps) => {
+  const [selectedIndex, setSelectedIndex] = useState<number>(2);
+
+  const handleSelect = (index: number, section: React.ReactNode) => {
+    setSelectedIndex(index);
+    onSelectSection(section);
+  };
+
   return (
     <nav className={styles.nav}>
       {NavConfig.map((item, index) => (
         <div
           key={index}
-          onClick={() => onSelectSection(item.section)}
-          className={styles.navItem}
+          onClick={() => handleSelect(index, item.section)}
+          className={`${styles.navItem} ${selectedIndex === index ? styles.selected : ''}`}
         >
-          <div>{item.icon}</div>
-          <div>{item.title}</div>
+          <div className={styles.icon}>{item.icon}</div>
+          <div className={styles.title}>{item.title}</div>
         </div>
       ))}
     </nav>
   );
 };
 
-export default NavLayout;
+export default Nav;

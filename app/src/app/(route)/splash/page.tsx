@@ -17,8 +17,8 @@ export default function Page() {
   const slides = [
     {
       img: "/assets/splash1.png",
-      title: "소개 글1",
-      desc: "소개 설명 글 1",
+      title: "반쪽 자립",
+      desc: '"저는 사회에 나올 준비가 되어 있지 않았어요. 갑작스럽게 모든 지원이 끊기고, 홀로서기를 해야 한다는 부담감에 짓눌렸습니다." 많은 청년들이 기본적인 경제적 지원을 받지만, 이 지원은 그들의 자립을 충분히 보장해 주지 못합니다. 현재의 정책은 주거와 생활비에 대한 최소한의 지원을 제공하지만, 그 이상의 정서적, 사회적 지원은 부족한 실정입니다. ',
       buttonText: "다음",
       onClick: () => setStep(1),
     },
@@ -44,7 +44,6 @@ export default function Page() {
         pagination={true}
         modules={[Pagination]}
         className="mySwiper"
-        activeIndex={step}
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>
@@ -53,7 +52,7 @@ export default function Page() {
             </div>
             <div className={styles.util}>
               <TextBox title={slide.title} desc={slide.desc} />
-              <Button title={slide.buttonText} onClick={slide.onClick} />
+              <Button title={slide.buttonText} onClick={slide.onClick} variant="dark"/>
             </div>
           </SwiperSlide>
         ))}

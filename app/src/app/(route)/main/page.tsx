@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Home, Mentoring, Qna, Donation, My } from "./(section)";
-import NavLayout from "./NavLayout";
+import Nav from "./Nav";
 import styles from "./main.module.css";
 
 export default function Page() {
@@ -12,8 +12,9 @@ export default function Page() {
 
   return (
     <div className={styles.container}>
+      <div className={styles.logo}><img src="/logo.png" /></div>
       <div className={styles.section}>{selectedSection}</div>
-      <NavLayout onSelectSection={setSelectedSection} />
+      <Nav onSelectSection={setSelectedSection} />
     </div>
   );
 }

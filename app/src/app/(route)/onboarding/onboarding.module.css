@@ -1,0 +1,56 @@
+.box {
+  height: 400px;
+  width: 100%;
+}
+
+.util {
+  flex: 1;
+
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 50px;
+}
+
+.swiper {
+  height: 100vh !important;
+}
+
+.input {
+  border-radius: 12px;
+  height: 48px;
+  font-size: 18px;
+  border: 1px solid #C5C6CC;
+  padding: 12px 16px;
+  box-sizing: border-box;
+}
+
+.input::placeholder {
+  color: #71727A;
+  font-size: 14px;
+}
+
+.input:focus {
+  border: 2px solid #A0D468;
+  outline: none;
+}
+
+.label {
+  color: #71727A;
+  font-size: 12px;
+  font-weight: 800;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form{
+  display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    height: 600px;
+    overflow-y: scroll;
+}

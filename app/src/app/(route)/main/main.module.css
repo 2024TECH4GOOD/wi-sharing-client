@@ -2,9 +2,34 @@
   height: 100vh;
   overflow: hidden;
   background-color: #fff;
+  padding: 0 10px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.logo{
+  padding: 20px 0px;
+  width: 150px;
 }
 
 .section {
-  height: calc(100vh - 90px);
+  height: calc(100vh - 90px - 75px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+
+.listContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.content{
+  flex: 1;
+
   overflow: scroll;
 }
