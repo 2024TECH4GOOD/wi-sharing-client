@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { Home, Mentoring, Qna, Donation, My } from "./(section)";
-import Nav from "./Nav";
-import styles from "./main.module.css";
+import styles from "./feedback.module.css";
+import FeedbackPage from "./Feedbackpage";
+import Nav from "../main/Nav";
+import { Mentoring } from "../main/(section)";
 
 export default function Page() {
   const [selectedSection, setSelectedSection] = useState<React.ReactNode>(
-    <Home />
+    <Mentoring />
   );
 
   return (
@@ -15,8 +16,9 @@ export default function Page() {
       <div className={styles.logo}>
         <img src="/logo.png" />
       </div>
-      <div className={styles.section}>{selectedSection}</div>
-      <Nav onSelectSection={setSelectedSection} />
+      <div className={styles.section}>
+        <FeedbackPage />
+      </div>
     </div>
   );
 }
