@@ -35,13 +35,13 @@ const personalityOptions = [
 ];
 
 const interestOptions = [
-  "인문학", "공학", "IT", "의료", "디자인",
-  "스포츠", "예술", "방송/연예", "금융"
+  "인문학", "공학", "IT", "의료", "금융", "디자인",
+  "스포츠", "예술", "방송/연예"
 ];
 
 const hobbyOptions = [
-  "여행", "게임", "운동", "독서", "영화 시청",
-  "음악 감상", "요리", "노래", "그림 그리기"
+  "여행", "게임", "운동", "독서", "노래", "영상 시청",
+  "음악", "요리", "그림 그리기"
 ];
 const genderOptions = ["남자", "여자", "기타"];
 
@@ -409,24 +409,22 @@ export default function Onboarding() {
               />
             ))}
           </div>
-          <div>
-          <h3>Location</h3>
+          
           <div style={{ display: 'flex', gap: '10px' }}>
             <InputBox
                 title="도시"
                 name="city"
-                placeholder={"도시를 입력하세요."} 
+                placeholder={"도시"} 
                 value={formData.city}
                 onChange={handleInputChange}            
                 />
             <InputBox
               title="지역"
               name="district"
-              placeholder={"지역(구, 동)을 입력하세요."} 
+              placeholder={"지역(구, 동)"} 
               value={formData.district}
               onChange={handleInputChange}
             />
-          </div>
           </div>
 
           {formData.role === "SENIOR" ? (
