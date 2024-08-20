@@ -49,6 +49,9 @@ export default function Onboarding() {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
   const [errorMessages, setErrorMessages] = useState<{ [key: string]: string }>({});
+  const [file, setFile] = useState<File | null>(null);
+  const [selectedFileName, setSelectedFileName] = useState<string | null>(null); // 선택된 파일 이름 상태 추가
+
 
   const [formData, setFormData] = useState<FormData>({
     id: "",
@@ -58,7 +61,7 @@ export default function Onboarding() {
     age: 0,
     birth: "2024-08-20",
     phoneNumber: "",
-    profileUrl: "string",
+    profileUrl: "", 
     location: "",
     personality: [],
     interest: [],
@@ -98,6 +101,17 @@ export default function Onboarding() {
     if (name === "phoneNumber") validatePhoneNumber(value);
     if (name === "sex") validateGender(value);
     if (name === "name") validateName(value);
+    if (name === "age") validateAge(value);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0] || null;
+    if (selectedFile) {
+      setFile(selectedFile);
+      setSelectedFileName(selectedFile.name); 
+    } else {
+      setSelectedFileName(null); 
+    }
   };
 
   const toggleSelection = (name: keyof FormData, value: string) => {
@@ -112,6 +126,20 @@ export default function Onboarding() {
         [name]: newValues,
       };
     });
+  };
+
+  const validateAge = (age: string) => {
+    const ageNumber = Number(age);
+    if (ageNumber <= 0 || ageNumber > 120) {
+      setErrorMessages((prev) => ({
+        ...prev,
+        age: "유효한 나이를 입력해주세요."
+      }));
+      return false; 
+    } else {
+      setErrorMessages((prev) => ({ ...prev, age: "" }));
+      return true; 
+    }
   };
 
   const validateEmail = (email: string) => {
@@ -183,14 +211,15 @@ export default function Onboarding() {
   };
 
   const validateSignupForm = () => {
-    const { name, id, password, phoneNumber, sex } = formData;
+    const { name, id, password, phoneNumber, sex, age } = formData;
     const nameValid = validateName(name);
     const emailValid = validateEmail(id);
     const passwordValid = validatePassword(password);
     const phoneValid = validatePhoneNumber(phoneNumber);
     const genderValid = validateGender(sex);
+    const ageValid = validateAge(age.toString()); // Validate age
 
-    return nameValid && emailValid && passwordValid && phoneValid && genderValid;
+    return nameValid && emailValid && passwordValid && phoneValid && genderValid && ageValid;
   };
 
   const validateSurveyForm = () => {
@@ -201,6 +230,31 @@ export default function Onboarding() {
   const handleSubmit = async () => {
     const location = `${formData.city} ${formData.district}`;
     const postData = { ...formData, location };
+
+    if (file) {
+      const formDataForUpload = new FormData();
+      formDataForUpload.append("file", file);
+  
+      try {
+        const uploadResponse = await fetch("http://13.209.206.185:9475/api/upload/png", {
+          method: "POST",
+          body: formDataForUpload,
+        });
+  
+        const profileUrl = await uploadResponse.text();
+        if (uploadResponse.ok) {
+          postData.profileUrl = profileUrl; 
+        } else {
+          console.error("File upload error:", profileUrl);
+          alert("프로필 이미지 업로드 중 오류가 발생했습니다.");
+          return;
+        }
+      } catch (error) {
+        console.error("File upload error:", error);
+        alert("프로필 이미지 업로드 중 오류가 발생했습니다.");
+        return;
+      }
+    }
 
     try {
       const response = await fetch(`http://13.209.206.185:9475/api/auth/register/youth`, {
@@ -303,6 +357,32 @@ export default function Onboarding() {
           />
           {errorMessages.sex && <p className={styles.error}>{errorMessages.sex}</p>}
           
+          <InputBox
+            title="나이"
+            placeholder="나이를 입력하세요"
+            name="age"
+            type="number"
+            value={formData.age}
+            onChange={handleInputChange}
+          />
+          {errorMessages.age && <p className={styles.error}>{errorMessages.age}</p>}
+
+          <InputBox
+            title="생년월일"
+            placeholder="YYYY-MM-DD 형식으로 입력하세요"
+            name="birth"
+            value={formData.birth}
+            onChange={handleInputChange}
+          />
+
+          <InputBox
+            title="프로필 사진"
+            placeholder="프로필 사진을 업로드하세요"
+            type="file"
+            name={"profileUrl"} 
+            onChange={handleFileChange} 
+            />
+          
           <Button title="Next" onClick={handleNext} variant="dark" />
         </div>
       )}
@@ -345,6 +425,25 @@ export default function Onboarding() {
                 isSelected={formData.hobby.includes(option)}
               />
             ))}
+          </div>
+          <div>
+          <h3>Location</h3>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <InputBox
+                title="도시"
+                name="city"
+                placeholder={"도시를 입력하세요."} 
+                value={formData.city}
+                onChange={handleInputChange}            
+                />
+            <InputBox
+              title="지역"
+              name="district"
+              placeholder={"지역(구, 동)을 입력하세요."} 
+              value={formData.district}
+              onChange={handleInputChange}
+            />
+          </div>
           </div>
 
           {formData.role === "SENIOR" ? (
