@@ -245,7 +245,7 @@ export default function Onboarding() {
               onClick={() => handleRoleSelect("YOUTH")}
             >
               <img src="/assets/youth.png" alt="Youth" />
-              <p className={styles.listBoxCaption}>자기계발과 커리어를 위해</p>
+              <p className={styles.listBoxCaption}>자립을 준비하고 있어요</p>
               <p className={styles.listBoxTitle}>멘티</p>
             </div>
           </div>
