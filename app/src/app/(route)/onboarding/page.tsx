@@ -7,6 +7,7 @@ import TextBox from "@/app/_components/TextBox";
 import ProgressBar from "@/app/_components/ProgressBar";
 import InputBox from "@/app/_components/InputBox";
 import styles from "./onboarding.module.css";
+import SelectBox from "@/app/_components/SelectBox";
 
 interface FormData {
   id: string;
@@ -42,6 +43,7 @@ const hobbyOptions = [
   "여행", "게임", "운동", "독서", "영화 시청",
   "음악 감상", "요리", "노래", "그림 그리기"
 ];
+const genderOptions = ["남자", "여자", "기타"];
 
 export default function Onboarding() {
   const router = useRouter();
@@ -50,7 +52,6 @@ export default function Onboarding() {
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
   const [errorMessages, setErrorMessages] = useState<{ [key: string]: string }>({});
   const [file, setFile] = useState<File | null>(null);
-  const [selectedFileName, setSelectedFileName] = useState<string | null>(null); // 선택된 파일 이름 상태 추가
 
 
   const [formData, setFormData] = useState<FormData>({
@@ -59,7 +60,7 @@ export default function Onboarding() {
     name: "",
     sex: "",
     age: 0,
-    birth: "2024-08-20",
+    birth: "",
     phoneNumber: "",
     profileUrl: "", 
     location: "",
@@ -89,7 +90,7 @@ export default function Onboarding() {
     setFormData({ ...formData, role });
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -99,7 +100,6 @@ export default function Onboarding() {
     if (name === "id") validateEmail(value);
     if (name === "password") validatePassword(value);
     if (name === "phoneNumber") validatePhoneNumber(value);
-    if (name === "sex") validateGender(value);
     if (name === "name") validateName(value);
     if (name === "age") validateAge(value);
   };
@@ -108,10 +108,7 @@ export default function Onboarding() {
     const selectedFile = e.target.files?.[0] || null;
     if (selectedFile) {
       setFile(selectedFile);
-      setSelectedFileName(selectedFile.name); 
-    } else {
-      setSelectedFileName(null); 
-    }
+    } 
   };
 
   const toggleSelection = (name: keyof FormData, value: string) => {
@@ -170,19 +167,6 @@ export default function Onboarding() {
     }
   };
 
-  const validateGender = (sex: string) => {
-    if (!["남자", "여자", "기타"].includes(sex)) {
-      setErrorMessages((prev) => ({
-        ...prev,
-        sex: "성별은 '남자', '여자', '기타' 중 하나여야 합니다."
-      }));
-      return false; 
-    } else {
-      setErrorMessages((prev) => ({ ...prev, sex: "" }));
-      return true; 
-    }
-  };
-
   const validateName = (name: string) => {
     if (!name) {
       setErrorMessages((prev) => ({
@@ -216,10 +200,9 @@ export default function Onboarding() {
     const emailValid = validateEmail(id);
     const passwordValid = validatePassword(password);
     const phoneValid = validatePhoneNumber(phoneNumber);
-    const genderValid = validateGender(sex);
-    const ageValid = validateAge(age.toString()); // Validate age
+    const ageValid = validateAge(age.toString());
 
-    return nameValid && emailValid && passwordValid && phoneValid && genderValid && ageValid;
+    return nameValid && emailValid && passwordValid && phoneValid && ageValid;
   };
 
   const validateSurveyForm = () => {
@@ -348,12 +331,12 @@ export default function Onboarding() {
           />
           {errorMessages.phoneNumber && <p className={styles.error}>{errorMessages.phoneNumber}</p>}
           
-          <InputBox
+          <SelectBox
             title="성별"
-            placeholder="성별을 입력하세요 (남자, 여자, 기타)"
             name="sex"
             value={formData.sex}
             onChange={handleInputChange}
+            options={genderOptions} 
           />
           {errorMessages.sex && <p className={styles.error}>{errorMessages.sex}</p>}
           
