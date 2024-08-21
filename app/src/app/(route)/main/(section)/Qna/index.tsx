@@ -4,12 +4,17 @@ import React, { useState, useEffect } from "react";
 import styles from "../../main.module.css";
 import Button from "@/app/_components/Button";
 import { useRouter } from "next/navigation";
+import SelectableButton from "@/app/_components/SelectableButton";
+import TextareaBox from "@/app/_components/TextareaBox";
 
 export default function QnA() {
   const router = useRouter();
   const [step, setStep] = useState(0);
   const [questions, setQuestions] = useState<any[]>([]);
   const [selectedQuestion, setSelectedQuestion] = useState<any | null>(null);
+  const [content, setContent] = useState<string>("");
+
+  const [selectedLikes, setSelectedLikes] = useState<string[]>([]);
 
   const fetchQuestions = async () => {
     try {
@@ -59,6 +64,15 @@ export default function QnA() {
     }
   };
 
+  const toggleSelection = (
+    item: string,
+    setSelected: React.Dispatch<React.SetStateAction<string[]>>
+  ) => {
+    setSelected((prev: string[]) =>
+      prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item]
+    );
+  };
+
   useEffect(() => {
     if (step === 0) {
       fetchQuestions();
@@ -71,6 +85,10 @@ export default function QnA() {
     }
   }, [step, selectedQuestion]);
 
+  // step 0 : 질문 목록
+  // step 1 : 질문 하기
+  // step 2 : 질문 내용
+  // step 3 : 답변 하기
   return (
     <>
       {step === 0 && (
@@ -81,9 +99,9 @@ export default function QnA() {
               {questions.map((item: any, index: number) => (
                 <ListBox
                   key={index}
+                  category={item.category}
                   title={item.question}
-                  desc={`카테고리: ${item.category}`}
-                  caption={`작성일: ${item.createdAt.join("-")}`}
+                  desc={item.question}
                   onClick={() => {
                     setSelectedQuestion(item);
                     setStep(2);
@@ -92,61 +110,70 @@ export default function QnA() {
               ))}
             </div>
           </div>
-          <Button title="질문 하기" variant="dark" onClick={() => setStep(1)} />
+          <Button title="질문하기" variant="dark" onClick={() => setStep(1)} />
         </>
       )}
       {step === 1 && (
         <>
-          <TextBox title="질문" desc="질문 작성" />
+          <TextBox title="질문하기" desc="질문 작성" />
           <div className={styles.content}>
-            <Button
-              title="질문 제출"
-              variant="dark"
-              onClick={() => setStep(0)}
+            <div className={styles.buttonGroup}>
+              {["법", "금융", "경제", "주거", "노무"].map((item) => (
+                <SelectableButton
+                  key={item}
+                  title={item}
+                  onSelect={() => toggleSelection(item, setSelectedLikes)}
+                  isSelected={selectedLikes.includes(item)}
+                />
+              ))}
+            </div>
+            <TextareaBox
+              title="Anything else?"
+              placeholder="Tell us everything."
+              value={content}
+              maxRows={15}
+              onChange={(e) => setContent(e.target.value)}
             />
           </div>
+          <Button
+            title="질문 제출하기"
+            variant="dark"
+            onClick={() => setStep(0)}
+          />
         </>
       )}
       {step === 2 && selectedQuestion && (
         <>
-          <TextBox
-            title="질문 상세"
-            desc={`카테고리: ${selectedQuestion.question.category}`}
-          />
           <div className={styles.content}>
             <div className={styles.listContainer}>
-              <ListBox
-                title={selectedQuestion.question.question}
-                desc={`작성일: ${
-                  selectedQuestion.question.createdAt
-                    ? selectedQuestion.question.createdAt.join("-")
-                    : "정보 없음"
-                }`}
-                caption={`작성자: ${selectedQuestion.question.name || "익명"}`}
-                onClick={() => {}}
-              />
+              <div>
+                <div className={styles.listBoxCaptionReverse}>
+                  {selectedQuestion.question.category}
+                </div>
+                <div>{selectedQuestion.question.question}</div>
+              </div>
               {selectedQuestion.answerList &&
               selectedQuestion.answerList.length > 0 ? (
-                selectedQuestion.answerList.map(
-                  (answer: any, index: number) => (
+                selectedQuestion.answerList
+                  .sort((a: any, b: any) =>
+                    a.name === "AI 챗봇" ? -1 : b.name === "AI 챗봇" ? 1 : 0
+                  )
+                  .map((answer: any, index: number) => (
                     <ListBox
                       key={answer.answerSeq}
                       title={
                         answer.name === "AI 챗봇"
-                          ? `인공지능 답변`
-                          : `${answer.name} 멘토`
+                          ? `🤖 AI의 답변`
+                          : `👴🏻 ${answer.name} 멘토`
                       }
                       caption={
-                        answer.name === "AI 챗봇"
-                          ? ""
-                          : `작성일: ${answer.createdAt.join("-")}`
+                        answer.name === "AI 챗봇" ? "" : `금융 분야 전문가`
                       }
                       desc={answer.answer}
                       onClick={() => {}}
                       answerType={answer.name === "AI 챗봇" ? "ai" : "user"}
                     />
-                  )
-                )
+                  ))
               ) : (
                 <TextBox
                   title="답변 없음"
@@ -155,10 +182,25 @@ export default function QnA() {
               )}
             </div>
           </div>
+          <Button title="답변하기" variant="dark" onClick={() => setStep(3)} />
+        </>
+      )}
+      {step === 3 && (
+        <>
+          <TextBox title="답변하기" desc="답변 작성" />
+          <div className={styles.content}>
+            <TextareaBox
+              title={selectedQuestion.question.question}
+              placeholder="Tell us everything."
+              value={content}
+              maxRows={20}
+              onChange={(e) => setContent(e.target.value)}
+            />
+          </div>
           <Button
-            title="메인으로 가기"
+            title="답변 제출하기"
             variant="dark"
-            onClick={() => router.push("/main")}
+            onClick={() => setStep(0)}
           />
         </>
       )}
