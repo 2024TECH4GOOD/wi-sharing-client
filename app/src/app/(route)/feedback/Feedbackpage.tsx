@@ -28,7 +28,6 @@ const FeedbackPage: React.FC = () => {
   };
 
   function goMain() {
-    console.log("hello");
     router.push("/main");
   }
 

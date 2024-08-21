@@ -65,7 +65,6 @@ export default function MenteeMentoring() {
       )}
       {step === 1 && selectedMentor && (
         <>
-        {console.log(selectedMentor)}
           <TextBox
             title="나만의 멘토 선정 완료"
             desc="매칭된 멘토에게 위쉐어링의 가이드를 따라 연락해보세요  😄"

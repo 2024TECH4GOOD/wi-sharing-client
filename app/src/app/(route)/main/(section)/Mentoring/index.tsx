@@ -9,11 +9,10 @@ import MentorMentoring from "./MentorMentoring";
 export default function Mentoring() {
   const router = useRouter();
   const role = localStorage.getItem("role");
-  console.log(role);
   return (
-    role === 'YOUTH' ?
-    <MenteeMentoring/> : 
-   <MentorMentoring/>
+    role === 'SENIOR' ?
+    <MentorMentoring/> : 
+   <MenteeMentoring/>
     
   );
 }

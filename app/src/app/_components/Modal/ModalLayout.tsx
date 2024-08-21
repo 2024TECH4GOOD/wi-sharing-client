@@ -8,6 +8,7 @@ interface IProps {
   children: ReactNode;
   open?: boolean;
   show?: boolean;
+  title?: string;
   onClose?: () => void;
   onConfirm?: () => void;
   width?: string;
@@ -17,6 +18,7 @@ interface IProps {
 export default function ModalLayout({
   children,
   open,
+  title,
   show,
   onClose,
   onConfirm,
@@ -37,7 +39,7 @@ export default function ModalLayout({
             <S.ModalContent onClick={(e) => e.stopPropagation()}>
               <button onClick={onClose} className="close-button"></button>
               {children}
-              <Button title={"확인"} variant={"dark"} onClick={onConfirm} />
+              <Button title={title ? title : "확인"} variant={"dark"} onClick={onConfirm} />
             </S.ModalContent>
           </S.ModalInner>
         </S.ModalContainer>
