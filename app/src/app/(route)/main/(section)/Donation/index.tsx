@@ -11,11 +11,14 @@ export default function Donation() {
 
   return (
     <>
-      <TextBox title="기부 하기" desc="기부하기 설명" />
+      <TextBox
+        title="기부하기"
+        desc="자립 준비 청년의 새로운 도약을 응원해주세요"
+      />
       <div className={styles.content}>
         <DonationPage />
       </div>
-      <Button title="기부 하기" variant="dark" onClick={() => {}} />
+      <Button title="기부하기" variant="dark" onClick={() => {}} />
     </>
   );
 }

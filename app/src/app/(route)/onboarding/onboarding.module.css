@@ -28,7 +28,7 @@
 
 .progress-bar-inner {
   height: 100%;
-  width: 33%; 
+  width: 33%;
   background-color: #a3d69c;
   transition: width 0.3s;
 }
@@ -54,8 +54,8 @@
 }
 
 .listBox img {
-  width: 120px; 
-  height: 120px; 
+  width: 120px;
+  height: 120px;
   object-fit: cover;
   margin-bottom: 10px;
 }
@@ -81,6 +81,11 @@
   margin-bottom: 5px;
 }
 
+.temp {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 .next-button {
   width: 100%;
   padding: 15px;
@@ -121,7 +126,6 @@
   gap: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
-
 }
 
 .error {
