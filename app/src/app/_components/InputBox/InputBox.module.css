@@ -1,21 +1,23 @@
 .inputBox {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-    min-width: 100px;
-    flex: 1;
-  }
-  
-  .label {
-    font-size: 16px;
-    color: #333;
-    margin-bottom: 5px;
-  }
-  
-  .input {
-    padding: 15px;
-    border: 1px solid #A0D468;
-    border-radius: 10px;
-    font-size: 16px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  min-width: 100px;
+  flex: 1;
+}
+
+.label {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.input {
+  padding: 15px;
+  border: 1px solid #c5c6cc;
+  border-radius: 10px;
+  font-size: 16px;
+}
+.input:focus {
+  border: 1px solid #a0d468;
+}
