@@ -162,3 +162,40 @@
   padding: 10px 0px 10px 10px;
   margin-bottom: 10px;
 }
+
+.t1 {
+  width: 107px;
+  height: 24px;
+}
+.t2 {
+  width: 327px;
+  height: 24px;
+}
+.t3 {
+  width: 100%;
+}
+.t4 {
+  height: 250px;
+}
+.link {
+  width: 60px;
+  height: 102px;
+}
+.links {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+.s1 {
+  padding: 0px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.m1 {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
