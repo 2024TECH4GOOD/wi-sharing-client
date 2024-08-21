@@ -21,19 +21,23 @@ export default function Page() {
 
     try {
       const response = await fetch(
-        `http://13.209.206.185:9475/api/auth/login?id=${loginForm.id}&pw=${loginForm.pw}`,
+        "http://13.209.206.185:9475/api/auth/login",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
+          body: JSON.stringify({
+            id: loginForm.id,
+            pw: loginForm.pw,
+          }),
         }
       );
 
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem("accessToken", data.accessToken);
-        router.push("/main"); 
+        router.push("/main");
       } else {
         alert("로그인에 실패했습니다.");
       }
@@ -53,7 +57,9 @@ export default function Page() {
 
   return (
     <div>
-      <div className={styles.logo}><img src="/logo.png" /></div>
+      <div className={styles.logo}>
+        <img src="/logo.png" />
+      </div>
       <div className={styles.box}>
         <img src="/assets/together.png" />
       </div>
@@ -76,10 +82,19 @@ export default function Page() {
           className={styles.input}
         />
         <div>
-        <Button title="로그인하기" onClick={handleLogin} variant="dark" />
-        <p className={styles.caption} onClick={()=> router.push("/onboarding")}>Not a member? Register now</p>
+          <Button title="로그인하기" onClick={handleLogin} variant="dark" />
+          <p
+            className={styles.caption}
+            onClick={() => router.push("/onboarding")}
+          >
+            위쉐어링이 궁금하다면? 회원가입하기
+          </p>
         </div>
-        <Button onClick={()=> router.push("/main")} title="로그인없이 보기" variant="bright"/>
+        <Button
+          onClick={() => router.push("/main")}
+          title="로그인없이 보기"
+          variant="bright"
+        />
       </div>
     </div>
   );
