@@ -11,7 +11,7 @@ export default function My() {
 
   return (
     <>
-      <TextBox title="마이페이지" desc="마이페이지 설명" />
+      <TextBox title="마이페이지" desc="" />
       <div className={styles.content}>
         <MyPage />
       </div>

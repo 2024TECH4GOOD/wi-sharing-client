@@ -33,21 +33,16 @@ export default function SelectPreferModal() {
       show={true}
     >
       <div className={styles.container}>
-      <p>안녕하세요</p>
+      <h2>👨🏻‍🏫 멘토 추천 받기</h2>
       <Button 
-        title={"가중치 A"} 
-        variant={selectedButton === "가중치 A" ? "light" : "bright"} 
-        onClick={() => handleButtonClick("가중치 A")} 
+        title={"직업&관심사 기반"} 
+        variant={selectedButton === "직업&관심사 기반" ? "light" : "bright"} 
+        onClick={() => handleButtonClick("직업&관심사 기반")} 
       />
       <Button 
-        title={"가중치 B"} 
-        variant={selectedButton === "가중치 B" ? "light" : "bright"} 
-        onClick={() => handleButtonClick("가중치 B")} 
-      />
-      <Button 
-        title={"가중치 C"} 
-        variant={selectedButton === "가중치 C" ? "light" : "bright"} 
-        onClick={() => handleButtonClick("가중치 C")} 
+        title={"취미&성격 기반"} 
+        variant={selectedButton === "취미&성격 기반" ? "light" : "bright"} 
+        onClick={() => handleButtonClick("취미&성격 기반")} 
       />
       </div>
     </ModalLayout>
