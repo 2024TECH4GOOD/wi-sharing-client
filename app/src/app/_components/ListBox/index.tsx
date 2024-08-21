@@ -4,12 +4,13 @@ import { FaStar } from "react-icons/fa";
 
 interface ListBoxProps {
   icon?: React.ReactNode;
-  title: string;
-  caption: string;
-  desc: string;
-  onClick: () => void;
+  title?: string;
+  caption?: string;
+  desc?: string;
+  onClick?: () => void;
   isSelected?: boolean;
   answerType?: "ai" | "user";
+  category?: string;
 }
 
 const ListBox = ({
@@ -18,6 +19,7 @@ const ListBox = ({
   caption,
   desc,
   onClick,
+  category,
   isSelected = false,
   answerType,
 }: ListBoxProps) => {
@@ -35,8 +37,14 @@ const ListBox = ({
       } ${boxClass}`}
       onClick={onClick}
     >
+      {category && (
+        <div className={styles.hash}>
+          {category === "FINANCE" && <span>💰 </span>}
+          {category}
+        </div>
+      )}
       <div className={styles.top}>
-        <div className={styles.icon}>{icon || <FaStar />}</div>
+        {icon && <div className={styles.icon}>{icon}</div>}
         <div>
           <div className={styles.title}>{title}</div>
           <div className={styles.caption}>{caption}</div>
