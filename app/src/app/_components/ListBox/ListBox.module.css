@@ -6,6 +6,7 @@
   flex-direction: column;
   gap: 10px;
   cursor: pointer;
+  padding: 24px;
 }
 
 .top {
@@ -19,18 +20,26 @@
 }
 
 .title {
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 20px;
   font-weight: 800;
-  padding-bottom: 5px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box; /* Needed for applying the -webkit-line-clamp */
+  -webkit-line-clamp: 1; /* Limits the text to 1 line */
+  -webkit-box-orient: vertical;
 }
 
 .desc {
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 18px;
   color: #71727a;
 }
 
 .caption {
-  font-size: 10px;
+  font-size: 12px;
+  line-height: 25px;
   font-weight: 500;
   color: #a0d468;
 }
@@ -40,18 +49,27 @@
   border-color: #d2f1b1;
 }
 
-
 /* AI 답변 스타일 */
 .aiAnswer {
-  background-color: #eee;
-  padding: 10px;
-  margin: 5px;
+  background-color: rgba(160, 212, 104, 0.1);
+  border: 0.5px solid #a0d4681a;
 }
 
 /* 사용자 답변 스타일 */
 .userAnswer {
   background-color: #fff;
-  padding: 10px;
-  margin: 5px;
 }
 
+.hash {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+  border: 1px solid #a0d468;
+  border-radius: 100px;
+  padding: 5px 10px;
+  background-color: #fff;
+  color: #a0d468;
+  width: 80px;
+  text-align: center;
+  font-weight: 600;
+}
