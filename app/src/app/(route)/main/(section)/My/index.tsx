@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import styles from "../../main.module.css";
 import Button from "@/app/_components/Button";
 import { useRouter } from "next/navigation";
+import MyPage from "./MyPage";
 
 export default function My() {
   const router = useRouter();
