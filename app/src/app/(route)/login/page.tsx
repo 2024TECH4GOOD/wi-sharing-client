@@ -37,6 +37,7 @@ export default function Page() {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem("accessToken", data.accessToken);
+        localStorage.setItem("role", data.role);
         router.push("/main");
       } else {
         alert("로그인에 실패했습니다.");

@@ -1,0 +1,10 @@
+/* SelectPreferModal.module.css */
+
+.container {
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  

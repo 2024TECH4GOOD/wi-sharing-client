@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import styles from "./donation.module.css";
 import SelectableButton from "@/app/_components/SelectableButton";
-import InputBox from "@/app/_components/InputBox";
-import Button from "@/app/_components/Button";
 import TextareaBox from "@/app/_components/TextareaBox";
 
 const DonationPage = () => {
