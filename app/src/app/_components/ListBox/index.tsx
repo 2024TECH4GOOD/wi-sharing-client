@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./ListBox.module.css";
 import { FaStar } from "react-icons/fa";
 
@@ -8,7 +8,8 @@ interface ListBoxProps {
   caption: string;
   desc: string;
   onClick: () => void;
-  isSelected: boolean;
+  isSelected?: boolean;
+  answerType?: "ai" | "user";
 }
 
 const ListBox = ({
@@ -17,17 +18,25 @@ const ListBox = ({
   caption,
   desc,
   onClick,
-  isSelected,
+  isSelected = false,
+  answerType,
 }: ListBoxProps) => {
+  const boxClass =
+    answerType === "ai"
+      ? styles.aiAnswer
+      : answerType === "user"
+      ? styles.userAnswer
+      : "";
+
   return (
     <div
-      className={`${styles.container} ${isSelected ? styles.selected : ""}`}
+      className={`${styles.container} ${
+        isSelected ? styles.selected : ""
+      } ${boxClass}`}
       onClick={onClick}
     >
       <div className={styles.top}>
-        <div className={styles.icon}>
-          <FaStar />
-        </div>
+        <div className={styles.icon}>{icon || <FaStar />}</div>
         <div>
           <div className={styles.title}>{title}</div>
           <div className={styles.caption}>{caption}</div>
