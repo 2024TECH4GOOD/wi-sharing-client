@@ -13,6 +13,7 @@ const MyPage = () => {
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [showWisdomDetails, setShowWisdomDetails] = useState(false);
   const [showKnowledgeDetails, setShowKnowledgeDetails] = useState(false);
+  const [mentoringAgreement, setMentoringAgreement] = useState<string>("");
   const router = useRouter();
   const role = localStorage.getItem("role");
   const getRandom = (min: number, max: number) => Math.floor(Math.random() * (max - min) + min);
@@ -35,6 +36,7 @@ const MyPage = () => {
           if (response.ok) {
             const data = await response.json();
             setUserProfile(data.userProfile);
+            setMentoringAgreement(data.mentoringAgreement)
           } else {
             console.error("Failed to fetch user profile:", response.status);
           }
@@ -55,6 +57,10 @@ const MyPage = () => {
 
   const handlePolicyClick = () => {
     router.push("/policy");
+  };
+
+  const handleAgreementClick = () => {
+    window.location.href = mentoringAgreement; 
   };
 
   const toggleWisdomDetails = () => {
@@ -92,6 +98,11 @@ const MyPage = () => {
 
       <div className={styles.menuItem} onClick={handleOnboardingClick}>
         <span>온보딩 다시하기</span>
+        <span className={styles.arrow}></span>
+      </div>
+
+      <div className={styles.menuItem} onClick={handleAgreementClick}>
+        <span>멘토링 계약서 다시 보기</span>
         <span className={styles.arrow}></span>
       </div>
 

@@ -262,7 +262,7 @@ export default function Onboarding() {
 
     if (png) {
       const formDataForUpload = new FormData();
-      formDataForUpload.append("file", file);
+      formDataForUpload.append("file", png);
   
       try {
         const uploadResponse = await fetch(
@@ -460,9 +460,35 @@ export default function Onboarding() {
             placeholder="프로필 사진을 업로드하세요"
             type="file"
             name={"profileUrl"} 
-            onChange={handleFileChange} 
+            onChange={handlePngChange} 
             />
           
+          <InputBox
+            title="멘토링 계약서"
+            placeholder="멘토링 계약서를 업로드하세요"
+            type="file"
+            name={"criminalRecordCheck"} 
+            onChange={handleFileChange} 
+            />
+            
+            <InputBox
+            title="사전교육 이수 확인서"
+            placeholder="사전교육 이수 확인서를 업로드하세요"
+            type="file"
+            name={"educationalCertificate"} 
+            onChange={undefined} 
+            />
+
+            {
+              formData.role === "SENIOR" &&
+              <InputBox
+                title="범죄 이력 확인서"
+                placeholder="범죄 이력 확인서를 입력하세요"
+                type="file"
+                name={"profileUrl2"} 
+                onChange={undefined} 
+              />
+            }
           <Button title="Next" onClick={handleNext} variant="dark" />
         </div>
       )}
