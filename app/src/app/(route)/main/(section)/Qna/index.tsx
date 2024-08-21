@@ -153,7 +153,9 @@ export default function QnA() {
                 <div className={styles.listBoxCaptionReverse}>
                   {selectedQuestion.question.category}
                 </div>
-                <div>{selectedQuestion.question.question}</div>
+                <div className={styles.leftLine}>
+                  {selectedQuestion.question.question}
+                </div>
               </div>
               {selectedQuestion.answerList &&
               selectedQuestion.answerList.length > 0 ? (
@@ -194,11 +196,14 @@ export default function QnA() {
         <>
           <TextBox title="답변하기" desc="답변 작성" />
           <div className={styles.content}>
+            <div className={styles.leftLine}>
+              {selectedQuestion.question.question}
+            </div>
             <TextareaBox
-              title={selectedQuestion.question.question}
-              placeholder="Tell us everything."
+              // title={selectedQuestion.question.question}
+              placeholder="나의 지혜는 자립 준비 청년에게 큰 도움이 될 수 있어요."
               value={content}
-              maxRows={20}
+              maxRows={13}
               onChange={(e) => setContent(e.target.value)}
             />
           </div>
