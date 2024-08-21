@@ -8,7 +8,7 @@
   flex-direction: column;
 }
 
-.logo{
+.logo {
   padding: 20px 0px;
   width: 150px;
 }
@@ -21,15 +21,103 @@
   gap: 20px;
 }
 
-
-.listContainer{
+.listContainer {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.content{
+.content {
   flex: 1;
 
   overflow: scroll;
+}
+
+.feedbackDescription {
+  color: #7a7172;
+}
+
+.h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.rating {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.listBox {
+  width: 50%;
+  margin: 20px auto;
+  padding: 50px 20px;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+}
+
+.listBox img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  margin-bottom: 30px;
+}
+
+.selected {
+  background-color: #eff6e5;
+}
+
+.listBoxTitle {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.listBoxCaption {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+
+  border-radius: 100px;
+  padding: 5px 10px;
+  background-color: #a0d468;
+  color: #fff;
+}
+
+.listBoxDesc {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(10%);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(-5%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.bounceIn {
+  animation: bounceIn 0.6s ease-out;
 }

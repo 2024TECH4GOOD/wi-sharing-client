@@ -1,21 +1,21 @@
 .container {
   border-radius: 16px;
-  border: 0.5px solid #C5C6CC;
+  border: 0.5px solid #c5c6cc;
   padding: 16px;
-
   display: flex;
   flex-direction: column;
   gap: 10px;
+  cursor: pointer;
 }
 
-.top{
+.top {
   display: flex;
   gap: 12px;
   align-items: center;
 }
 
-.icon{
-  color: #A0D468;
+.icon {
+  color: #a0d468;
 }
 
 .title {
@@ -26,11 +26,32 @@
 
 .desc {
   font-size: 12px;
-  color: #71727A;
+  color: #71727a;
 }
 
 .caption {
   font-size: 10px;
   font-weight: 500;
-  color: #A0D468;
+  color: #a0d468;
 }
+
+.selected {
+  background-color: #eff6e5;
+  border-color: #d2f1b1;
+}
+
+
+/* AI 답변 스타일 */
+.aiAnswer {
+  background-color: #eee;
+  padding: 10px;
+  margin: 5px;
+}
+
+/* 사용자 답변 스타일 */
+.userAnswer {
+  background-color: #fff;
+  padding: 10px;
+  margin: 5px;
+}
+
