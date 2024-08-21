@@ -30,6 +30,14 @@
     margin-top: 10px;
     font-size: 18px;
     font-weight: bold;
+  }
+
+   
+  .temperature {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #a0d468;
+    font-weight: bold;
     padding-bottom: 20px;
   }
   
@@ -50,4 +58,16 @@
     font-size: 18px;
     color: #aaa;
   }
+
+  .details {
+    text-align: right;
+    margin-top: 5px;
+    padding-right: 15px;
+    color: gray; 
+    font-size: 14px;
+  }
   
+  .details span {
+    display: block; 
+    margin-bottom: 5px; 
+  }

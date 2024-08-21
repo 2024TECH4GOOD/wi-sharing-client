@@ -18,6 +18,7 @@ interface FormData {
   birth: string;
   phoneNumber: string;
   profileUrl: string;
+  mentoringAgreement: string;
   location: string;
   personality: string[];
   interest: string[];
@@ -80,6 +81,7 @@ export default function Onboarding() {
     {}
   );
   const [file, setFile] = useState<File | null>(null);
+  const [png, setPng] = useState<File | null>(null);
 
   const [formData, setFormData] = useState<FormData>({
     id: "",
@@ -89,7 +91,8 @@ export default function Onboarding() {
     age: 0,
     birth: "",
     phoneNumber: "",
-    profileUrl: "",
+    profileUrl: "", 
+    mentoringAgreement: "",
     location: "",
     personality: [],
     interest: [],
@@ -139,6 +142,15 @@ export default function Onboarding() {
       setFile(selectedFile);
     }
   };
+
+
+  const handlePngChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0] || null;
+    if (selectedFile) {
+      setPng(selectedFile);
+    } 
+  };
+
 
   const toggleSelection = (name: keyof FormData, value: string) => {
     setFormData((prevData) => {
@@ -248,10 +260,10 @@ export default function Onboarding() {
     const location = `${formData.city} ${formData.district}`;
     const postData = { ...formData, location };
 
-    if (file) {
+    if (png) {
       const formDataForUpload = new FormData();
-      formDataForUpload.append("file", file);
-
+      formDataForUpload.append("file", png);
+  
       try {
         const uploadResponse = await fetch(
           "http://13.209.206.185:9475/api/upload/png",
@@ -275,6 +287,32 @@ export default function Onboarding() {
         return;
       }
     }
+
+    if (file) {
+      const formDataForUpload = new FormData();
+      formDataForUpload.append("file", file);
+  
+      try {
+        const uploadResponse = await fetch("http://13.209.206.185:9475/api/upload/pdf", {
+          method: "POST",
+          body: formDataForUpload,
+        });
+  
+        const pdfUrl = await uploadResponse.text();
+        if (uploadResponse.ok) {
+          postData.mentoringAgreement = pdfUrl; 
+        } else {
+          console.error("File upload error:", pdfUrl);
+          alert("pdf 파일 업로드 중 오류가 발생했습니다.");
+          return;
+        }
+      } catch (error) {
+        console.error("File upload error:", error);
+        alert("pdf 파일 업로드 중 오류가 발생했습니다.");
+        return;
+      }
+    }
+    
 
     try {
       const response = await fetch(
@@ -421,10 +459,36 @@ export default function Onboarding() {
             title="프로필 사진"
             placeholder="프로필 사진을 업로드하세요"
             type="file"
-            name={"profileUrl"}
-            onChange={handleFileChange}
-          />
+            name={"profileUrl"} 
+            onChange={handlePngChange} 
+            />
+          
+          <InputBox
+            title="멘토링 계약서"
+            placeholder="멘토링 계약서를 업로드하세요"
+            type="file"
+            name={"criminalRecordCheck"} 
+            onChange={handleFileChange} 
+            />
+            
+            <InputBox
+            title="사전교육 이수 확인서"
+            placeholder="사전교육 이수 확인서를 업로드하세요"
+            type="file"
+            name={"educationalCertificate"} 
+            onChange={undefined} 
+            />
 
+            {
+              formData.role === "SENIOR" &&
+              <InputBox
+                title="범죄 이력 확인서"
+                placeholder="범죄 이력 확인서를 입력하세요"
+                type="file"
+                name={"profileUrl2"} 
+                onChange={undefined} 
+              />
+            }
           <Button title="Next" onClick={handleNext} variant="dark" />
         </div>
       )}
