@@ -28,10 +28,12 @@ export default function Page() {
         <img src="/logo.png" />
       </div>
       <div className={styles.box}>
-        <img src="/assets/together.png" alt="Logo" />
+        <img src="/assets/home/c2.png" alt="Logo" />
+      </div>
+      <div className={styles.t3}>
+        <img src="/assets/home/t3.png" alt="Logo" />
       </div>
       <div className={styles.form}>
-        <h1>위 쉐어링 소개서</h1>
         {content.map((el, index) => (
           <TextBox key={index} title={el.title} desc={el.desc} />
         ))}
