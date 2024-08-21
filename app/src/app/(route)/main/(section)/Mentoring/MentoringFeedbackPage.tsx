@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styles from "./feedback.module.css"; 
 import SelectableButton from "@/app/_components/SelectableButton"; 
-import InputBox from "@/app/_components/InputBox";
 import { FaStar } from "react-icons/fa";
 import Button from "@/app/_components/Button";
 import TextBox from "@/app/_components/TextBox";
