@@ -15,6 +15,7 @@ export default function QnA() {
   const [content, setContent] = useState<string>("");
 
   const [selectedLikes, setSelectedLikes] = useState<string[]>([]);
+  const role = localStorage.getItem("role");
 
   const fetchQuestions = async () => {
     try {
@@ -110,7 +111,9 @@ export default function QnA() {
               ))}
             </div>
           </div>
+          { role === 'YOUTH' && 
           <Button title="질문하기" variant="dark" onClick={() => setStep(1)} />
+          }
         </>
       )}
       {step === 1 && (
@@ -182,7 +185,9 @@ export default function QnA() {
               )}
             </div>
           </div>
+          { role === 'SENIOR' &&
           <Button title="답변하기" variant="dark" onClick={() => setStep(3)} />
+          }
         </>
       )}
       {step === 3 && (
