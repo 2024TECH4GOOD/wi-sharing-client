@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./ListBox.module.css";
-import { FaStar } from "react-icons/fa";
 
 interface ListBoxProps {
   icon?: React.ReactNode;
   title?: string;
   caption?: string;
   desc?: string;
+  similarity?: string; 
   onClick?: () => void;
   isSelected?: boolean;
   answerType?: "ai" | "user";
@@ -18,6 +18,7 @@ const ListBox = ({
   title,
   caption,
   desc,
+  similarity, 
   onClick,
   category,
   isSelected = false,
@@ -49,6 +50,11 @@ const ListBox = ({
           <div className={styles.title}>{title}</div>
           <div className={styles.caption}>{caption}</div>
         </div>
+        {similarity && (
+          <div className={styles.similarity}>
+            유사도 {similarity} 
+          </div>
+        )}
       </div>
       <div className={styles.desc}>{desc}</div>
     </div>

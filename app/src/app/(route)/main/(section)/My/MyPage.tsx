@@ -25,7 +25,7 @@ const MyPage = () => {
 
       if (accessToken) {
         try {
-          const response = await fetch("http://13.209.206.185:9475/api/my/profile", {
+          const response = await fetch("https://wi-sharing.com/api/my/profile", {
             method: "GET",
             headers: {
               "Authorization": `Bearer ${accessToken}`,

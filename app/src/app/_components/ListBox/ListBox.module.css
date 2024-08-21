@@ -6,10 +6,12 @@
   flex-direction: column;
   gap: 10px;
   cursor: pointer;
+  position: relative; 
 }
 
 .top {
   display: flex;
+  justify-content: space-between;
   gap: 12px;
   align-items: center;
 }
@@ -25,8 +27,8 @@
 
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box; /* Needed for applying the -webkit-line-clamp */
-  -webkit-line-clamp: 1; /* Limits the text to 1 line */
+  display: -webkit-box; 
+  -webkit-line-clamp: 1; 
   -webkit-box-orient: vertical;
 }
 
@@ -37,7 +39,7 @@
 }
 
 .caption {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 25px;
   font-weight: 500;
   color: #a0d468;
@@ -71,4 +73,14 @@
   width: 80px;
   text-align: center;
   font-weight: 600;
+}
+
+.similarity {
+  background-color: #8cc14b;
+  color: #fff;
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: 100px;
+  font-weight: 600;
+  margin-left: auto;
 }

@@ -9,31 +9,15 @@ import SelectPreferModal from "./SelectPreferModal";
 import useModal from "@/app/hooks/useModal";
 import styles from "../../main.module.css";
 
-const MentorData = [
-  {
-    name: "멘토1",
-    caption: "금융 전문가",
-    desc: "한줄 소개 한줄 소개 한줄 소개",
-  },
-  {
-    name: "멘토2",
-    caption: "금융 전문가",
-    desc: "한줄 소개 한줄 소개 한줄 소개",
-  },
-  {
-    name: "멘토3",
-    caption: "금융 전문가",
-    desc: "한줄 소개 한줄 소개 한줄 소개",
-  },
-];
-
 export default function MenteeMentoring() {
   const router = useRouter();
   const [step, setStep] = useState<number>(0);
+  const [mentorData, setMentorData] = useState<any[]>([]); 
   const [selectedMentor, setSelectedMentor] = useState<{
     name: string;
-    caption: string;
-    desc: string;
+    career: string;
+    similarity: string;
+    personality: string;
   } | null>(null);
 
   const { modalOpen } = useModal();
@@ -41,6 +25,11 @@ export default function MenteeMentoring() {
   useEffect(() => {
     modalOpen();
   }, [modalOpen]);
+
+  // SelectPreferModal에서 받아온 데이터를 mentorData에 저장
+  const handleMentorData = (data: any[]) => {
+    setMentorData(data);
+  };
 
   return (
     <>
@@ -52,12 +41,13 @@ export default function MenteeMentoring() {
           />
           <div className={styles.content}>
             <div className={styles.listContainer}>
-              {MentorData.map((item, index) => (
+              {mentorData.map((item, index) => (
                 <ListBox
                   key={index}
                   title={item.name}
-                  desc={item.desc}
-                  caption={item.caption}
+                  desc={item.personality}
+                  caption={item.career}
+                  similarity={item.similaritySum}
                   onClick={() => setSelectedMentor(item)}
                   isSelected={selectedMentor?.name === item.name}
                 />
@@ -75,6 +65,7 @@ export default function MenteeMentoring() {
       )}
       {step === 1 && selectedMentor && (
         <>
+        {console.log(selectedMentor)}
           <TextBox
             title="나만의 멘토 선정 완료"
             desc="매칭된 멘토에게 위쉐어링의 가이드를 따라 연락해보세요  😄"
@@ -83,8 +74,9 @@ export default function MenteeMentoring() {
             <div className={`${styles.listBox} ${styles.bounceIn}`}>
               <img src="/assets/senior.png" alt="Senior" />
               <div className={styles.listBoxTitle}>{selectedMentor.name}</div>
-              <div className={styles.listBoxDesc}>{selectedMentor.desc}</div>
-              <p className={styles.listBoxCaption}>{selectedMentor.caption}</p>
+              <p className={styles.listBoxCaption}>{selectedMentor.career}</p>
+              <div className={styles.listBoxDesc}>{selectedMentor.personality}</div>
+              
             </div>
           </div>
           <Button
@@ -94,7 +86,7 @@ export default function MenteeMentoring() {
           />
         </>
       )}
-      <SelectPreferModal />
+      <SelectPreferModal onMentorData={handleMentorData} />
     </>
   );
 }

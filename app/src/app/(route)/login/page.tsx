@@ -21,7 +21,7 @@ export default function Page() {
 
     try {
       const response = await fetch(
-        "http://13.209.206.185:9475/api/auth/login",
+        "https://wi-sharing.com/api/auth/login",
         {
           method: "POST",
           headers: {

@@ -21,7 +21,7 @@ export default function QnA() {
     try {
       const accessToken = localStorage.getItem("accessToken");
       const response = await fetch(
-        "http://13.209.206.185:9475/api/question/list?question=&category=",
+        "https://wi-sharing.com/api/question/list?question=&category=",
         {
           method: "GET",
           headers: {
@@ -45,7 +45,7 @@ export default function QnA() {
     try {
       const accessToken = localStorage.getItem("accessToken");
       const response = await fetch(
-        `http://13.209.206.185:9475/api/question/${questionSeq}`,
+        `https://wi-sharing.com/api/question/${questionSeq}`,
         {
           method: "GET",
           headers: {
@@ -74,6 +74,37 @@ export default function QnA() {
     );
   };
 
+  const handleSubmitQuestion = async () => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const category = selectedLikes[0] || "기타"; // 선택된 카테고리가 없으면 "기타"로 기본값 설정
+      const response = await fetch("https://wi-sharing.com/api/question", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          question: content,
+          category: category,
+        }),
+      });
+
+      if (response.ok) {
+        // 질문 제출 후 질문 목록을 다시 불러옴
+        await fetchQuestions();
+        // 초기화 후 step 0으로 이동
+        setContent("");
+        setSelectedLikes([]);
+        setStep(0);
+      } else {
+        console.error("Failed to submit question");
+      }
+    } catch (error) {
+      console.error("Error submitting question:", error);
+    }
+  };
+
   useEffect(() => {
     if (step === 0) {
       fetchQuestions();
@@ -86,10 +117,6 @@ export default function QnA() {
     }
   }, [step, selectedQuestion]);
 
-  // step 0 : 질문 목록
-  // step 1 : 질문 하기
-  // step 2 : 질문 내용
-  // step 3 : 답변 하기
   return (
     <>
       {step === 0 && (
@@ -151,7 +178,7 @@ export default function QnA() {
           <Button
             title="질문 제출하기"
             variant="dark"
-            onClick={() => setStep(0)}
+            onClick={handleSubmitQuestion} // 버튼 클릭 시 질문 제출 함수 호출
           />
         </>
       )}
