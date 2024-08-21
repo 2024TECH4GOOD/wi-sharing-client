@@ -47,6 +47,13 @@
   align-self: flex-start;
 }
 
+.adminMessage {
+  background-color: #cff4fc;
+  color: #055160;
+  align-self: center;
+  max-width: 80% !important;
+}
+
 .inputContainer {
   display: flex;
   padding: 16px;

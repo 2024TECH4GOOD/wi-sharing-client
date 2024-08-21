@@ -3,7 +3,7 @@ import TextareaAutosize from "@mui/material/TextareaAutosize";
 import styles from "./TextareaBox.module.css";
 
 interface TextareaBoxProps {
-  title: string;
+  title?: string;
   placeholder: string;
   value: string;
   onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
@@ -19,7 +19,7 @@ const TextareaBox: React.FC<TextareaBoxProps> = ({
 }) => {
   return (
     <div className={styles.textareaBox}>
-      <label className={styles.label}>{title}</label>
+      {title && <label className={styles.label}>{title}</label>}
       <TextareaAutosize
         maxRows={maxRows}
         minRows={maxRows}

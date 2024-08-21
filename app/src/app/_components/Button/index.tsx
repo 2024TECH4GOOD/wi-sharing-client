@@ -8,7 +8,8 @@ interface ButtonProps {
 }
 
 const Button = ({ title, onClick, variant }: ButtonProps) => {
-  const buttonClass = variant === "dark" ? styles.darkButton : styles.brightButton;
+  const buttonClass =
+    variant === "dark" ? styles.darkButton : styles.brightButton;
 
   return (
     <div className={buttonClass} onClick={onClick}>
