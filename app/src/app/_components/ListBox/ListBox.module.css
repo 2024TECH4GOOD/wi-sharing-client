@@ -39,3 +39,17 @@
   background-color: #eff6e5;
   border-color: #d2f1b1;
 }
+
+/* AI 답변 스타일 */
+.aiAnswer {
+  background-color: #eee;
+  padding: 10px;
+  margin: 5px;
+}
+
+/* 사용자 답변 스타일 */
+.userAnswer {
+  background-color: #fff;
+  padding: 10px;
+  margin: 5px;
+}
