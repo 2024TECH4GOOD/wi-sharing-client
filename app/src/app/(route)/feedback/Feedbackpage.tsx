@@ -34,8 +34,11 @@ const FeedbackPage: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <TextBox title="멘토링 피드백" desc="Choose your interests." />
-      <h3>👴🏻 지혜의 온도</h3>
+      <TextBox
+        title="지혜의 온기 전달하기"
+        desc="매칭된 멘토에게 따듯한 온기를 전달해보세요"
+      />
+      <h3>🌡️ 지혜의 온도</h3>
       <div className={styles.rating}>
         {[...Array(5)].map((_, index) => (
           <FaStar
@@ -48,7 +51,7 @@ const FeedbackPage: React.FC = () => {
         ))}
       </div>
 
-      <h3>❤️‍🩹 마음에 와닿은 점은?</h3>
+      <h3>🔥 마음에 와닿은 점은?</h3>
       <div className={styles.buttonGroup}>
         {[
           "명확한 조언",

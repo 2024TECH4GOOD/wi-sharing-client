@@ -3,7 +3,7 @@ import styles from "./TextBox.module.css";
 
 interface TextBoxProps {
   title: string;
-  desc: string;
+  desc?: string;
 }
 
 const TextBox = ({ title, desc }: TextBoxProps) => {
