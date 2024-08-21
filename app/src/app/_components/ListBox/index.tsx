@@ -52,7 +52,7 @@ const ListBox = ({
         </div>
         {similarity && (
           <div className={styles.similarity}>
-            유사도 {similarity} 
+            {similarity} 
           </div>
         )}
       </div>

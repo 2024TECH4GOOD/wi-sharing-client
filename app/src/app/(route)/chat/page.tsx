@@ -3,7 +3,9 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "./chat.module.css";
 import { useRouter } from "next/navigation";
 
-const ChatData = [
+const role = localStorage.getItem("role");
+
+const YouthChatData = [
   {
     role: "admin",
     content:
@@ -40,13 +42,51 @@ const ChatData = [
   },
 ];
 
+const SeniorChatData = [
+  {
+    role: "admin",
+    content:
+      "[위쉐어링이 추천하는 AI 대화 가이드]\n\n 멘티님께 인사를 드릴 때는 따뜻하게 다가가는 것이 좋습니다. 멘티님도 당신의 경험을 듣고 싶어 할 거예요. 간단하게 자기소개를 하면서 멘토링에 대해 기대하는 부분을 얘기해보세요.\n\n 이렇게요: ‘안녕하세요, 저는 [이름]입니다. 멘토링을 통해 저의 경험을 나누고 싶습니다. 앞으로 잘 부탁드립니다.’\n\n 이렇게 시작하면 멘티님도 더 편하게 이야기를 이어가실 겁니다.",
+  },
+  {
+    role: "mentee",
+    content:
+      "안녕하세요, [멘토 이름]님! 반갑습니다. 멘토님의 경험에서 배우고 싶은 부분이 많아요!",
+  },
+  {
+    role: "admin",
+    content:
+      "[위쉐어링이 추천하는 AI 가이드] 멘티님과 조금 더 친해졌다면, 이제는 일상적인 이야기나 과거의 경험을 나누면서 더 가까워질 수 있어요. 멘티님께서 궁금해하시는 부분에 대해 솔직하게 이야기해보세요.\n\n 예를 들어, ‘멘티님, 저는 과거에 [경험]을 했습니다. 그때 배운 점은 [교훈]입니다.’ \n\n 이런 식으로 대화를 이어가시면 좋습니다.",
+  },
+  {
+    role: "mentee",
+    content:
+      "멘토님, 그런 경험이 있으셨다니 정말 배울 점이 많네요. 저도 그런 상황에서 어떻게 해야 할지 고민이 많았어요.",
+  },
+  {
+    role: "admin",
+    content:
+      "[위쉐어링이 추천하는 AI 가이드] 이제는 멘티님과 직접 만나 이야기를 나눌 시점이 되었을 수도 있습니다. 만나서 더 깊이 이야기해보세요.\n\n ‘멘티님, 저희가 이번 주말에 시간을 내어 만날 수 있을까요? 편하신 시간에 맞추겠습니다.’\n\n 이렇게 제안하면, 멘티님도 편하게 받아들일 것입니다.",
+  },
+  {
+    role: "mentee",
+    content:
+      "멘토님, 만나서 직접 뵙고 더 많은 이야기를 나눌 수 있으면 좋겠습니다. 이번 주말에 시간이 괜찮으신가요?",
+  },
+  {
+    role: "mentee",
+    content: "그럼 [장소]에서 오후 3시에 만나는 걸로 할까요? 기대됩니다!",
+  },
+];
+
 export default function Page() {
   const router = useRouter();
-  const [messages, setMessages] = useState([ChatData[0]]);
+  const chatData = role === "YOUTH" ? YouthChatData : SeniorChatData;
+  const [messages, setMessages] = useState([chatData[0]]);
   const [inputText, setInputText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [chatIndex, setChatIndex] = useState(1);
-  const chatWindowRef = useRef<HTMLDivElement>(null); // chatWindow 참조 추가
+  const chatWindowRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,8 +97,8 @@ export default function Page() {
       setIsLoading(true);
 
       setTimeout(() => {
-        if (chatIndex < ChatData.length) {
-          setMessages([...newMessages, ChatData[chatIndex]]);
+        if (chatIndex < chatData.length) {
+          setMessages([...newMessages, chatData[chatIndex]]);
           setChatIndex(chatIndex + 1);
         }
         setIsLoading(false);
@@ -66,7 +106,6 @@ export default function Page() {
     }
   };
 
-  // 메시지가 추가될 때마다 스크롤을 맨 아래로 이동
   useEffect(() => {
     if (chatWindowRef.current) {
       chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
@@ -101,7 +140,7 @@ export default function Page() {
             className={`${styles.message} ${
               msg.role === "user"
                 ? styles.userMessage
-                : msg.role === "mentor"
+                : msg.role === "mentor" || msg.role === "mentee"
                 ? styles.mentorMessage
                 : styles.adminMessage
             }`}

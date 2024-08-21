@@ -47,7 +47,7 @@ export default function MenteeMentoring() {
                   title={item.name}
                   desc={item.personality}
                   caption={item.career}
-                  similarity={item.similaritySum}
+                  similarity={"유사도 "+item.similaritySum}
                   onClick={() => setSelectedMentor(item)}
                   isSelected={selectedMentor?.name === item.name}
                 />
