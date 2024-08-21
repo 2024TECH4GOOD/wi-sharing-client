@@ -19,9 +19,18 @@ const DonationPage = () => {
 
   return (
     <div className={styles.container}>
-      <label className={styles.label}>후원 분야</label>
+      <label className={styles.label}>📖 후원 분야</label>
       <div className={styles.buttonGroup}>
-        {["EASY TO USE", "COMPLETE", "HELPFUL", "CONVENIENT", "LOOKS GOOD"].map((item) => (
+        {[
+          "건강",
+          "교육",
+          "노동",
+          "문화",
+          "안전",
+          "주거",
+          "사회참여",
+          "환경",
+        ].map((item) => (
           <SelectableButton
             key={item}
             title={item}
@@ -31,7 +40,7 @@ const DonationPage = () => {
         ))}
       </div>
 
-      <label className={styles.label}>기부 금액</label>
+      <label className={styles.label}>💰 기부 금액</label>
       <div className={styles.buttonGroup}>
         {["10,000", "20,000", "30,000", "50,000"].map((item) => (
           <SelectableButton
@@ -44,12 +53,11 @@ const DonationPage = () => {
       </div>
 
       <TextareaBox
-        title="따뜻한 말 한마디"
-        placeholder="Tell us everything."
+        title="👩‍❤️‍👩따뜻한 말 한마디"
+        placeholder="자립 준비 청년을 위한 따듯한 메세지를 전달해주세요."
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
-
     </div>
   );
 };

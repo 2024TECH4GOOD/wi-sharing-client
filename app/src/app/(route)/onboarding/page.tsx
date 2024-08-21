@@ -30,19 +30,45 @@ interface FormData {
 }
 
 const personalityOptions = [
-  "사교적인", "내향적인", "꼼꼼한", "감성적인", "이성적인",
-  "책임감 있는", "계획적인", "즉흥적인", "낙천적인", "창의력이 많은",
-  "모험심이 강한", "현실적인", "온화한", "긍정적인", "주의 깊은"
+  "사교적인",
+  "내향적인",
+  "꼼꼼한",
+  "감성적인",
+  "이성적인",
+  "책임감 있는",
+  "계획적인",
+  "즉흥적인",
+  "낙천적인",
+  "창의력이 많은",
+  "모험심이 강한",
+  "현실적인",
+  "온화한",
+  "긍정적인",
+  "주의 깊은",
 ];
 
 const interestOptions = [
-  "인문학", "공학", "IT", "의료", "금융", "디자인",
-  "스포츠", "예술", "방송/연예"
+  "인문학",
+  "공학",
+  "IT",
+  "의료",
+  "금융",
+  "디자인",
+  "스포츠",
+  "예술",
+  "방송/연예",
 ];
 
 const hobbyOptions = [
-  "여행", "게임", "운동", "독서", "노래", "영상 시청",
-  "음악", "요리", "그림 그리기"
+  "여행",
+  "게임",
+  "운동",
+  "독서",
+  "노래",
+  "영상 시청",
+  "음악",
+  "요리",
+  "그림 그리기",
 ];
 const genderOptions = ["남자", "여자", "기타"];
 
@@ -51,10 +77,11 @@ export default function Onboarding() {
   const steps: string[] = ["role", "signup", "survey"];
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
-  const [errorMessages, setErrorMessages] = useState<{ [key: string]: string }>({});
+  const [errorMessages, setErrorMessages] = useState<{ [key: string]: string }>(
+    {}
+  );
   const [file, setFile] = useState<File | null>(null);
   const [png, setPng] = useState<File | null>(null);
-
 
   const [formData, setFormData] = useState<FormData>({
     id: "",
@@ -73,7 +100,7 @@ export default function Onboarding() {
     role: "USER",
     city: "",
     district: "",
-    career: ""
+    career: "",
   });
 
   const handleNext = () => {
@@ -93,7 +120,9 @@ export default function Onboarding() {
     setFormData({ ...formData, role });
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -111,7 +140,7 @@ export default function Onboarding() {
     const selectedFile = e.target.files?.[0] || null;
     if (selectedFile) {
       setFile(selectedFile);
-    } 
+    }
   };
 
 
@@ -142,12 +171,12 @@ export default function Onboarding() {
     if (ageNumber <= 0 || ageNumber > 120) {
       setErrorMessages((prev) => ({
         ...prev,
-        age: "유효한 나이를 입력해주세요."
+        age: "유효한 나이를 입력해주세요.",
       }));
-      return false; 
+      return false;
     } else {
       setErrorMessages((prev) => ({ ...prev, age: "" }));
-      return true; 
+      return true;
     }
   };
 
@@ -156,12 +185,12 @@ export default function Onboarding() {
     if (!emailRegex.test(email)) {
       setErrorMessages((prev) => ({
         ...prev,
-        id: "유효한 이메일 주소를 입력해주세요."
+        id: "유효한 이메일 주소를 입력해주세요.",
       }));
-      return false; 
+      return false;
     } else {
       setErrorMessages((prev) => ({ ...prev, id: "" }));
-      return true; 
+      return true;
     }
   };
 
@@ -170,12 +199,12 @@ export default function Onboarding() {
     if (!phoneRegex.test(phoneNumber)) {
       setErrorMessages((prev) => ({
         ...prev,
-        phoneNumber: "전화번호는'000-0000-0000'형식이어야 합니다."
+        phoneNumber: "전화번호는'000-0000-0000'형식이어야 합니다.",
       }));
-      return false; 
+      return false;
     } else {
       setErrorMessages((prev) => ({ ...prev, phoneNumber: "" }));
-      return true; 
+      return true;
     }
   };
 
@@ -183,26 +212,26 @@ export default function Onboarding() {
     if (!name) {
       setErrorMessages((prev) => ({
         ...prev,
-        name: "이름을 입력해주세요."
+        name: "이름을 입력해주세요.",
       }));
-      return false; 
+      return false;
     } else {
       setErrorMessages((prev) => ({ ...prev, name: "" }));
-      return true; 
+      return true;
     }
   };
 
   const validatePassword = (password: string) => {
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).{7,}$/; 
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).{7,}$/;
     if (!passwordRegex.test(password)) {
       setErrorMessages((prev) => ({
         ...prev,
-        password: "비밀번호는 7자 이상이며 특수문자와 숫자를 포함해야 합니다."
+        password: "비밀번호는 7자 이상이며 특수문자와 숫자를 포함해야 합니다.",
       }));
-      return false; 
+      return false;
     } else {
       setErrorMessages((prev) => ({ ...prev, password: "" }));
-      return true; 
+      return true;
     }
   };
 
@@ -219,7 +248,12 @@ export default function Onboarding() {
 
   const validateSurveyForm = () => {
     const { personality, interest, hobby, career } = formData;
-    return personality.length > 0 && interest.length > 0 && hobby.length > 0 && career;
+    return (
+      personality.length > 0 &&
+      interest.length > 0 &&
+      hobby.length > 0 &&
+      career
+    );
   };
 
   const handleSubmit = async () => {
@@ -228,17 +262,20 @@ export default function Onboarding() {
 
     if (png) {
       const formDataForUpload = new FormData();
-      formDataForUpload.append("file", png);
+      formDataForUpload.append("file", file);
   
       try {
-        const uploadResponse = await fetch("http://13.209.206.185:9475/api/upload/png", {
-          method: "POST",
-          body: formDataForUpload,
-        });
-  
+        const uploadResponse = await fetch(
+          "http://13.209.206.185:9475/api/upload/png",
+          {
+            method: "POST",
+            body: formDataForUpload,
+          }
+        );
+
         const profileUrl = await uploadResponse.text();
         if (uploadResponse.ok) {
-          postData.profileUrl = profileUrl; 
+          postData.profileUrl = profileUrl;
         } else {
           console.error("File upload error:", profileUrl);
           alert("프로필 이미지 업로드 중 오류가 발생했습니다.");
@@ -278,19 +315,22 @@ export default function Onboarding() {
     
 
     try {
-      const response = await fetch(`http://13.209.206.185:9475/api/auth/register/youth`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userInfo: postData }),
-      });
+      const response = await fetch(
+        `http://13.209.206.185:9475/api/auth/register/youth`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userInfo: postData }),
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem("accessToken", data.accessToken);
         localStorage.setItem("role", data.role);
-        router.push("/main"); 
+        router.push("/main");
       } else {
         alert("회원가입에 실패했습니다.");
       }
@@ -306,10 +346,14 @@ export default function Onboarding() {
       {currentStep === 0 && (
         <div>
           <h1 className={styles.title}>나는 누구에요</h1>
-          <p className={styles.caption}>Choose your interests.</p>
+          <p className={styles.caption}>
+            위쉐어링에서 참여할 역할을 골라주세요
+          </p>
           <div className={styles.listBoxes}>
             <div
-              className={`${styles.listBox} ${selectedRole === "SENIOR" ? styles.selected : ''}`}
+              className={`${styles.listBox} ${
+                selectedRole === "SENIOR" ? styles.selected : ""
+              }`}
               onClick={() => handleRoleSelect("SENIOR")}
             >
               <img src="/assets/senior.png" alt="Senior" />
@@ -317,7 +361,9 @@ export default function Onboarding() {
               <p className={styles.listBoxTitle}>멘토</p>
             </div>
             <div
-              className={`${styles.listBox} ${selectedRole === "YOUTH" ? styles.selected : ''}`}
+              className={`${styles.listBox} ${
+                selectedRole === "YOUTH" ? styles.selected : ""
+              }`}
               onClick={() => handleRoleSelect("YOUTH")}
             >
               <img src="/assets/youth.png" alt="Youth" />
@@ -340,7 +386,9 @@ export default function Onboarding() {
             value={formData.name}
             onChange={handleInputChange}
           />
-          {errorMessages.name && <p className={styles.error}>{errorMessages.name}</p>}
+          {errorMessages.name && (
+            <p className={styles.error}>{errorMessages.name}</p>
+          )}
 
           <InputBox
             title="이메일"
@@ -349,7 +397,9 @@ export default function Onboarding() {
             value={formData.id}
             onChange={handleInputChange}
           />
-          {errorMessages.id && <p className={styles.error}>{errorMessages.id}</p>}
+          {errorMessages.id && (
+            <p className={styles.error}>{errorMessages.id}</p>
+          )}
 
           <InputBox
             title="비밀번호"
@@ -359,8 +409,10 @@ export default function Onboarding() {
             onChange={handleInputChange}
             type="password"
           />
-          {errorMessages.password && <p className={styles.error}>{errorMessages.password}</p>}
-          
+          {errorMessages.password && (
+            <p className={styles.error}>{errorMessages.password}</p>
+          )}
+
           <InputBox
             title="전화번호"
             placeholder="전화번호를 입력하세요"
@@ -368,17 +420,21 @@ export default function Onboarding() {
             value={formData.phoneNumber}
             onChange={handleInputChange}
           />
-          {errorMessages.phoneNumber && <p className={styles.error}>{errorMessages.phoneNumber}</p>}
-          
+          {errorMessages.phoneNumber && (
+            <p className={styles.error}>{errorMessages.phoneNumber}</p>
+          )}
+
           <SelectBox
             title="성별"
             name="sex"
             value={formData.sex}
             onChange={handleInputChange}
-            options={genderOptions} 
+            options={genderOptions}
           />
-          {errorMessages.sex && <p className={styles.error}>{errorMessages.sex}</p>}
-          
+          {errorMessages.sex && (
+            <p className={styles.error}>{errorMessages.sex}</p>
+          )}
+
           <InputBox
             title="나이"
             placeholder="나이를 입력하세요"
@@ -387,7 +443,9 @@ export default function Onboarding() {
             value={formData.age}
             onChange={handleInputChange}
           />
-          {errorMessages.age && <p className={styles.error}>{errorMessages.age}</p>}
+          {errorMessages.age && (
+            <p className={styles.error}>{errorMessages.age}</p>
+          )}
 
           <InputBox
             title="생년월일"
@@ -402,45 +460,21 @@ export default function Onboarding() {
             placeholder="프로필 사진을 업로드하세요"
             type="file"
             name={"profileUrl"} 
-            onChange={handlePngChange} 
-            />
-            
-            <InputBox
-            title="멘토링 계약서"
-            placeholder="멘토링 계약서를 업로드하세요"
-            type="file"
-            name={"criminalRecordCheck"} 
             onChange={handleFileChange} 
             />
-            
-            <InputBox
-            title="사전교육 이수 확인서"
-            placeholder="사전교육 이수 확인서를 업로드하세요"
-            type="file"
-            name={"educationalCertificate"} 
-            onChange={undefined} 
-            />
-
-            {
-              formData.role === "SENIOR" &&
-              <InputBox
-                title="범죄 이력 확인서"
-                placeholder="범죄 이력 확인서를 입력하세요"
-                type="file"
-                name={"profileUrl2"} 
-                onChange={undefined} 
-              />
-            }
-        
+          
           <Button title="Next" onClick={handleNext} variant="dark" />
         </div>
       )}
 
       {currentStep === 2 && (
-        <div>
-          <h1>매칭 시스템을 위한 설문조사</h1>
+        <div className={styles.temp}>
+          <h1>나는 이런 사람이에요</h1>
 
-          <TextBox title="성격" desc="성격을 선택하세요" />
+          <TextBox
+            title="성격"
+            desc="나를 가장 잘 나타내는 키워드 (최대 5개)"
+          />
           <div className={styles.buttonGroup}>
             {personalityOptions.map((option) => (
               <SelectableButton
@@ -452,7 +486,7 @@ export default function Onboarding() {
             ))}
           </div>
 
-          <TextBox title="관심사" desc="관심사를 선택하세요" />
+          <TextBox title="관심사" desc="나의 관심 분야 (최대 3개)" />
           <div className={styles.buttonGroup}>
             {interestOptions.map((option) => (
               <SelectableButton
@@ -464,7 +498,7 @@ export default function Onboarding() {
             ))}
           </div>
 
-          <TextBox title="취미" desc="취미를 선택하세요" />
+          <TextBox title="취미" desc="내가 즐겨하는 일 (최대 3개)" />
           <div className={styles.buttonGroup}>
             {hobbyOptions.map((option) => (
               <SelectableButton
@@ -475,19 +509,19 @@ export default function Onboarding() {
               />
             ))}
           </div>
-          
-          <div style={{ display: 'flex', gap: '10px' }}>
+
+          <div style={{ display: "flex", gap: "10px" }}>
             <InputBox
-                title="도시"
-                name="city"
-                placeholder={"도시"} 
-                value={formData.city}
-                onChange={handleInputChange}            
-                />
+              title="도시"
+              name="city"
+              placeholder={"도시"}
+              value={formData.city}
+              onChange={handleInputChange}
+            />
             <InputBox
               title="지역"
               name="district"
-              placeholder={"지역(구, 동)"} 
+              placeholder={"지역(구, 동)"}
               value={formData.district}
               onChange={handleInputChange}
             />
@@ -495,8 +529,8 @@ export default function Onboarding() {
 
           {formData.role === "SENIOR" ? (
             <InputBox
-              title="커리어"
-              placeholder="커리어를 입력하세요"
+              title="경력"
+              placeholder="경력을 입력하세요"
               name="career"
               value={formData.career}
               onChange={handleInputChange}
@@ -510,7 +544,7 @@ export default function Onboarding() {
               onChange={handleInputChange}
             />
           )}
-          <Button title="Submit" onClick={handleSubmit} variant="dark" />
+          <Button title="제출하기" onClick={handleSubmit} variant="dark" />
         </div>
       )}
     </div>

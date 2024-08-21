@@ -94,7 +94,10 @@ export default function QnA() {
     <>
       {step === 0 && (
         <>
-          <TextBox title="QnA" desc="질문 목록" />
+          <TextBox
+            title="지식 더하기"
+            desc="다양한 분야의 전문가에게 질문해보세요"
+          />
           <div className={styles.content}>
             <div className={styles.listContainer}>
               {questions.map((item: any, index: number) => (
@@ -111,17 +114,24 @@ export default function QnA() {
               ))}
             </div>
           </div>
-          { role === 'YOUTH' && 
-          <Button title="질문하기" variant="dark" onClick={() => setStep(1)} />
-          }
+          {role === "YOUTH" && (
+            <Button
+              title="질문하기"
+              variant="dark"
+              onClick={() => setStep(1)}
+            />
+          )}
         </>
       )}
       {step === 1 && (
         <>
-          <TextBox title="질문하기" desc="질문 작성" />
+          <TextBox
+            title="지식 더하기"
+            desc="다양한 분야의 전문가에게 질문해보세요"
+          />
           <div className={styles.content}>
             <div className={styles.buttonGroup}>
-              {["법", "금융", "경제", "주거", "노무"].map((item) => (
+              {["법", "금융", "경제", "주거", "직업", "기타"].map((item) => (
                 <SelectableButton
                   key={item}
                   title={item}
@@ -131,8 +141,8 @@ export default function QnA() {
               ))}
             </div>
             <TextareaBox
-              title="Anything else?"
-              placeholder="Tell us everything."
+              title="질문을 작성하세요"
+              placeholder="시니어 멘토가 풍부한 지식을 더해줍니다. 궁금한 점을 무엇이든 물어보세요."
               value={content}
               maxRows={15}
               onChange={(e) => setContent(e.target.value)}
@@ -153,7 +163,9 @@ export default function QnA() {
                 <div className={styles.listBoxCaptionReverse}>
                   {selectedQuestion.question.category}
                 </div>
-                <div>{selectedQuestion.question.question}</div>
+                <div className={styles.leftLine}>
+                  {selectedQuestion.question.question}
+                </div>
               </div>
               {selectedQuestion.answerList &&
               selectedQuestion.answerList.length > 0 ? (
@@ -185,20 +197,30 @@ export default function QnA() {
               )}
             </div>
           </div>
-          { role === 'SENIOR' &&
-          <Button title="답변하기" variant="dark" onClick={() => setStep(3)} />
-          }
+          {role === "SENIOR" && (
+            <Button
+              title="답변하기"
+              variant="dark"
+              onClick={() => setStep(3)}
+            />
+          )}
         </>
       )}
       {step === 3 && (
         <>
-          <TextBox title="답변하기" desc="답변 작성" />
+          <TextBox
+            title="답변 하기"
+            desc="자립 준비 청년에게 풍부한 지식을 전달해주세요"
+          />
           <div className={styles.content}>
+            <div className={styles.leftLine}>
+              {selectedQuestion.question.question}
+            </div>
             <TextareaBox
-              title={selectedQuestion.question.question}
-              placeholder="Tell us everything."
+              // title={selectedQuestion.question.question}
+              placeholder="나의 지혜는 자립 준비 청년에게 큰 도움이 될 수 있어요."
               value={content}
-              maxRows={20}
+              maxRows={13}
               onChange={(e) => setContent(e.target.value)}
             />
           </div>
