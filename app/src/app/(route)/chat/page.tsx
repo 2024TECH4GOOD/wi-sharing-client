@@ -3,8 +3,6 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "./chat.module.css";
 import { useRouter } from "next/navigation";
 
-const role = localStorage.getItem("role");
-
 const YouthChatData = [
   {
     role: "admin",
@@ -80,6 +78,7 @@ const SeniorChatData = [
 ];
 
 export default function Page() {
+  const role = localStorage.getItem("role");
   const router = useRouter();
   const chatData = role === "YOUTH" ? YouthChatData : SeniorChatData;
   const [messages, setMessages] = useState([chatData[0]]);
