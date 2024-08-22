@@ -266,7 +266,7 @@ export default function Onboarding() {
   
       try {
         const uploadResponse = await fetch(
-          "http://13.209.206.185:9475/api/upload/png",
+          "https://wi-sharing.com/api/upload/png",
           {
             method: "POST",
             body: formDataForUpload,
@@ -293,7 +293,7 @@ export default function Onboarding() {
       formDataForUpload.append("file", file);
   
       try {
-        const uploadResponse = await fetch("http://13.209.206.185:9475/api/upload/pdf", {
+        const uploadResponse = await fetch("https://wi-sharing.com/api/upload/pdf", {
           method: "POST",
           body: formDataForUpload,
         });
@@ -316,7 +316,7 @@ export default function Onboarding() {
 
     try {
       const response = await fetch(
-        `http://13.209.206.185:9475/api/auth/register/youth`,
+        `https://wi-sharing.com/api/auth/register/youth`,
         {
           method: "POST",
           headers: {

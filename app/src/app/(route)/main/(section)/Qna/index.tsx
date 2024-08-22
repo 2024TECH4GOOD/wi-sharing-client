@@ -21,7 +21,7 @@ export default function QnA() {
     try {
       const accessToken = localStorage.getItem("accessToken");
       const response = await fetch(
-        "http://13.209.206.185:9475/api/question/list?question=&category=",
+        "https://wi-sharing.com/api/question/list?question=&category=",
         {
           method: "GET",
           headers: {
@@ -45,7 +45,7 @@ export default function QnA() {
     try {
       const accessToken = localStorage.getItem("accessToken");
       const response = await fetch(
-        `http://13.209.206.185:9475/api/question/${questionSeq}`,
+        `https://wi-sharing.com/api/question/${questionSeq}`,
         {
           method: "GET",
           headers: {
